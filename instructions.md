@@ -38,3 +38,15 @@ What these papers help with
 If you are building the game, the most useful requirements pulled from this literature are: frequent Go vs rarer No‑Go trials, simple response rules, many repeated trials, a practice phase, and logging of omission errors, commission errors, and reaction time.
 
 The literature also warns that Go/No‑Go and stop‑signal tasks are related but not identical, so you should decide early whether your app is training response withholding, response cancellation, or both.
+
+General plan of stages (current build scope)
+- Single run only: no practice, no adaptive difficulty, no thresholds.
+- Stage timing: each stage lasts 3s and advances automatically.
+- Stage mix: 90% Go, 10% No-Go, biased random ordering.
+- Input handling: first input within a stage is recorded; later inputs in that stage are ignored.
+- Logging: for each stage, record type (Go/No-Go), whether a response happened, response timestamp, and reactionTimeMs; if no response, reactionTimeMs = null.
+- Go stages: record reaction time if the user taps/presses.
+- No-Go stages: if the user responds, log reaction time as a wrong response; if they wait it out, log no-response (RT null).
+- Session summary: counts of Go responses, No-Go responses, misses; RT mean/SD for Go responses; RT mean/SD for No-Go responses (only when responses occurred).
+- Controls: large tap target plus keyboard (space/enter) support.
+- Optional: restart button to replay the session; optional raw log export (JSON) later.

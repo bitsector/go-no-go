@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Go/No-Go</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <main class="app" id="app">
+    <header class="app__header">
+      <h1>Go / No-Go</h1>
+      <p class="app__subtitle">Simple 3-second stages, 90/10 Go bias</p>
+    </header>
+
+    <section class="display" aria-live="polite">
+      <div class="cue" id="cue">Ready?</div>
+      <div class="progress" aria-hidden="true">
+        <div class="progress__bar" id="progress-bar"></div>
+      </div>
+      <p class="hint" id="hint">Press start to begin</p>
+    </section>
+
+    <section class="controls">
+      <button class="btn btn--primary" id="action-button" aria-label="Respond">Tap / Space / Enter</button>
+      <button class="btn" id="start-button">Start Session</button>
+    </section>
+
+    <section class="summary" id="summary" hidden>
+      <h2>Session summary</h2>
+      <dl class="stats">
+        <div class="stat"><dt>Go responses</dt><dd id="stat-go-responses">0</dd></div>
+        <div class="stat"><dt>Go no-response</dt><dd id="stat-go-misses">0</dd></div>
+        <div class="stat"><dt>No-Go responses</dt><dd id="stat-no-go-responses">0</dd></div>
+        <div class="stat"><dt>No-Go waits</dt><dd id="stat-no-go-waits">0</dd></div>
+        <div class="stat"><dt>Go RT mean (ms)</dt><dd id="stat-go-rt-mean">–</dd></div>
+        <div class="stat"><dt>Go RT SD (ms)</dt><dd id="stat-go-rt-sd">–</dd></div>
+        <div class="stat"><dt>No-Go RT mean (ms)</dt><dd id="stat-no-go-rt-mean">–</dd></div>
+        <div class="stat"><dt>No-Go RT SD (ms)</dt><dd id="stat-no-go-rt-sd">–</dd></div>
+      </dl>
+    </section>
+  </main>
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>
