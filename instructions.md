@@ -1,6 +1,9 @@
 Build a simple Go/No-Go cognitive training game as a responsive web app that works on desktop and mobile browsers. The game should present frequent "Go" stimuli and rarer "No-Go" stimuli, so the user develops a strong tendency to respond and must sometimes inhibit that response. Track correct Go responses, omission errors, commission errors, reaction time, and reaction-time variability. Include a short practice mode, clear instructions, large touch-friendly controls, and adaptive difficulty based on speed and accuracy. Keep the interface minimal, fast, and distraction-free.
 That description matches the standard Go/No‑Go logic where frequent Go trials create a prepotent response tendency and rarer No‑Go trials test response inhibition.
 
+Requirements:
+JS code that can be easily embedded in a page or display as a standalone page in which the go no go game will run. 
+
 Good papers
 A Model of the Go/No-Go Task
 https://pmc.ncbi.nlm.nih.gov/articles/PMC2701630/
