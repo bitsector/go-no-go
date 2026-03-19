@@ -13,7 +13,8 @@
       <p class="app__subtitle">Simple 3-second stages, 90/10 Go bias</p>
     </header>
 
-    <section class="display" aria-live="polite">
+    <section class="display" id="display-area" aria-live="polite" role="button" tabindex="0" aria-label="Respond — tap or press Space / Enter">
+      <p class="stage-counter" id="stage-counter" hidden></p>
       <div class="cue" id="cue">Ready?</div>
       <div class="progress" aria-hidden="true">
         <div class="progress__bar" id="progress-bar"></div>
@@ -22,8 +23,7 @@
     </section>
 
     <section class="controls">
-      <button class="btn btn--primary" id="action-button" aria-label="Respond">Tap / Space / Enter</button>
-      <button class="btn" id="start-button">Start Session</button>
+      <button class="btn btn--primary" id="start-button">Start Session</button>
     </section>
 
     <section class="summary" id="summary" hidden>

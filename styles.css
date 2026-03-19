@@ -51,12 +51,20 @@ body {
   font-size: 15px;
 }
 
+.stage-counter {
+  margin: 0 0 10px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
 .display {
   text-align: center;
   padding: 24px;
   border: 1px solid var(--border);
   border-radius: 14px;
   background: linear-gradient(135deg, rgba(45, 125, 244, 0.06), rgba(30, 155, 99, 0.04));
+  cursor: pointer;
+  user-select: none;
 }
 
 .cue {
@@ -64,6 +72,20 @@ body {
   font-weight: 700;
   letter-spacing: 0.05em;
   margin: 0 0 12px;
+}
+
+.cue--circle {
+  display: block;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  margin: 0 auto 12px;
+  font-size: 0;
+  transition: opacity 0.15s ease;
+}
+
+.cue--circle.is-captured {
+  opacity: 0.45;
 }
 
 .hint {
@@ -103,8 +125,8 @@ body {
 }
 
 .controls {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  display: flex;
+  justify-content: center;
   gap: 12px;
 }
 
