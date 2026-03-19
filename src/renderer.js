@@ -1,8 +1,13 @@
 import { StageType } from "./stages.js";
+import { GO_COLORS } from "./config.js";
 
 function formatNumber(value) {
   if (value == null || Number.isNaN(value)) return "–";
   return Math.round(value);
+}
+
+function randomGoColor() {
+  return GO_COLORS[Math.floor(Math.random() * GO_COLORS.length)];
 }
 
 export function createRenderer() {
@@ -23,9 +28,12 @@ export function createRenderer() {
     cueEl.textContent = "";
   }
 
-  function showStage(type, durationMs) {
-    setCueColor(type === StageType.GO ? "var(--success)" : "var(--danger)");
-    // No progress bar to drive.
+  function showStage(type) {
+    if (type === StageType.GO) {
+      setCueColor(randomGoColor());
+    } else {
+      setCueColor("var(--danger)");
+    }
   }
 
   function showCaptured() {

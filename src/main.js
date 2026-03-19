@@ -50,7 +50,7 @@ function startNextStage() {
   state.responseTs = null;
   state.stageStartTs = performance.now();
 
-  renderer.showStage(stage.type, STAGE_DURATION_MS);
+  renderer.showStage(stage.type);
 
   state.stageTimer = setTimeout(() => {
     endStage();
@@ -92,12 +92,20 @@ function finishSession() {
 
   const summary = computeSummary(state.log);
   renderer.showSummary(summary);
-  renderer.showIdle("Session finished. Press start to replay.");
+  renderer.showIdle();
 }
 
 function init() {
   renderer.showIdle();
   bindInputs({ onAction: handleAction });
+
+  const restartBtn = document.getElementById("btn-restart");
+  if (restartBtn) {
+    restartBtn.addEventListener("click", () => {
+      startSession();
+    });
+  }
+
   startSession();
 }
 

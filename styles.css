@@ -63,6 +63,8 @@ body {
   background: var(--cue-neutral);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
   transition: background-color 160ms ease;
+  cursor: pointer;
+  touch-action: manipulation;
 }
 
 .controls {
