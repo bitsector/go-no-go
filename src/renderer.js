@@ -46,6 +46,13 @@ export function createRenderer() {
     hintEl.textContent = "Response recorded";
   }
 
+  function showFixation() {
+    stopProgress();
+    cueEl.textContent = "+";
+    cueEl.style.color = "var(--muted)";
+    hintEl.textContent = "";
+  }
+
   function showIdle(message = "Press start to begin") {
     stopProgress();
     cueEl.textContent = "Ready?";
@@ -72,6 +79,7 @@ export function createRenderer() {
   return {
     showStage,
     showCaptured,
+    showFixation,
     showIdle,
     showSummary,
     hideSummary,

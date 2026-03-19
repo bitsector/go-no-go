@@ -1,4 +1,4 @@
-import { STAGE_DURATION_MS, GO_PROBABILITY, DEFAULT_STAGE_COUNT } from "./config.js";
+import { STAGE_DURATION_MS, ITI_MS, INITIAL_DELAY_MS, GO_PROBABILITY, DEFAULT_STAGE_COUNT } from "./config.js";
 import { StageType, generateStages } from "./stages.js";
 import { computeSummary } from "./metrics.js";
 import { createRenderer } from "./renderer.js";
@@ -38,7 +38,7 @@ function startSession() {
   renderer.hideSummary();
   renderer.showIdle("Get ready...");
   startButton.textContent = "Restart Session";
-  startNextStage();
+  state.stageTimer = setTimeout(startNextStage, INITIAL_DELAY_MS);
 }
 
 function startNextStage() {
@@ -76,8 +76,9 @@ function endStage() {
     rtMs,
   });
 
-  // Move immediately to the next stage to keep a steady cadence.
-  startNextStage();
+  // Show a brief fixation cross between stages to break up the animation.
+  renderer.showFixation();
+  state.stageTimer = setTimeout(startNextStage, ITI_MS);
 }
 
 function handleAction(timestamp) {
