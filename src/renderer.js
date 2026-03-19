@@ -1,14 +1,17 @@
 import { StageType } from "./stages.js";
+import { GO_COLORS } from "./config.js";
 
 function formatNumber(value) {
   if (value == null || Number.isNaN(value)) return "–";
   return Math.round(value);
 }
 
+function randomGoColor() {
+  return GO_COLORS[Math.floor(Math.random() * GO_COLORS.length)];
+}
+
 export function createRenderer() {
   const cueEl = document.getElementById("cue");
-  const hintEl = document.getElementById("hint");
-  const progressBar = document.getElementById("progress-bar");
   const summaryEl = document.getElementById("summary");
 
   const statGoResponses = document.getElementById("stat-go-responses");
@@ -20,37 +23,25 @@ export function createRenderer() {
   const statNoGoRtMean = document.getElementById("stat-no-go-rt-mean");
   const statNoGoRtSd = document.getElementById("stat-no-go-rt-sd");
 
-  function restartProgress(durationMs) {
-    progressBar.classList.remove("is-running");
-    // Force reflow so the animation can restart.
-    // eslint-disable-next-line no-unused-expressions
-    progressBar.offsetWidth;
-    progressBar.style.setProperty("--duration", `${durationMs}ms`);
-    progressBar.classList.add("is-running");
+  function setCueColor(color) {
+    cueEl.style.backgroundColor = color;
+    cueEl.textContent = "";
   }
 
-  function stopProgress() {
-    progressBar.classList.remove("is-running");
-  }
-
-  function showStage(type, durationMs) {
-    cueEl.textContent = type === StageType.GO ? "GO" : "NO GO";
-    cueEl.style.color = type === StageType.GO ? "var(--text)" : "var(--danger)";
-    hintEl.textContent = type === StageType.GO
-      ? "Respond within 3 seconds"
-      : "Do not respond for 3 seconds";
-    restartProgress(durationMs);
+  function showStage(type) {
+    if (type === StageType.GO) {
+      setCueColor(randomGoColor());
+    } else {
+      setCueColor("var(--danger)");
+    }
   }
 
   function showCaptured() {
-    hintEl.textContent = "Response recorded";
+    // No text shown; keep visual steady.
   }
 
-  function showIdle(message = "Press start to begin") {
-    stopProgress();
-    cueEl.textContent = "Ready?";
-    cueEl.style.color = "var(--text)";
-    hintEl.textContent = message;
+  function showIdle() {
+    setCueColor("var(--cue-neutral)");
   }
 
   function showSummary(summary) {
@@ -75,6 +66,5 @@ export function createRenderer() {
     showIdle,
     showSummary,
     hideSummary,
-    stopProgress,
   };
 }

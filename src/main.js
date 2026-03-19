@@ -4,8 +4,6 @@ import { computeSummary } from "./metrics.js";
 import { createRenderer } from "./renderer.js";
 import { bindInputs } from "./input.js";
 
-const startButton = document.getElementById("start-button");
-const actionButton = document.getElementById("action-button");
 const renderer = createRenderer();
 
 const state = {
@@ -36,8 +34,7 @@ function startSession() {
   state.responseTs = null;
   state.running = true;
   renderer.hideSummary();
-  renderer.showIdle("Get ready...");
-  startButton.textContent = "Restart Session";
+  renderer.showIdle();
   startNextStage();
 }
 
@@ -53,7 +50,7 @@ function startNextStage() {
   state.responseTs = null;
   state.stageStartTs = performance.now();
 
-  renderer.showStage(stage.type, STAGE_DURATION_MS);
+  renderer.showStage(stage.type);
 
   state.stageTimer = setTimeout(() => {
     endStage();
@@ -92,17 +89,24 @@ function finishSession() {
   state.running = false;
   state.stageActive = false;
   clearTimers();
-  renderer.stopProgress();
 
   const summary = computeSummary(state.log);
   renderer.showSummary(summary);
-  renderer.showIdle("Session finished. Press start to replay.");
+  renderer.showIdle();
 }
 
 function init() {
   renderer.showIdle();
-  startButton.addEventListener("click", startSession);
-  bindInputs({ buttonEl: actionButton, onAction: handleAction });
+  bindInputs({ onAction: handleAction });
+
+  const restartBtn = document.getElementById("btn-restart");
+  if (restartBtn) {
+    restartBtn.addEventListener("click", () => {
+      startSession();
+    });
+  }
+
+  startSession();
 }
 
 init();
