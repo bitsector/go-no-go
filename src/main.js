@@ -37,6 +37,7 @@ function startSession() {
   state.running = true;
   renderer.hideSummary();
   renderer.showIdle("Get ready...");
+  renderer.showStatus("running");
   startButton.textContent = "Restart Session";
   startNextStage();
 }
@@ -96,6 +97,7 @@ function finishSession() {
 
   const summary = computeSummary(state.log);
   renderer.showSummary(summary);
+  renderer.showStatus("done");
   renderer.showIdle("Session finished. Press start to replay.");
 }
 

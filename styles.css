@@ -127,7 +127,53 @@ body {
 .controls {
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 12px;
+}
+
+.session-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  border: 1.5px solid transparent;
+}
+
+.session-status::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.session-status--running {
+  color: var(--accent-strong);
+  border-color: rgba(45, 125, 244, 0.3);
+  background: rgba(45, 125, 244, 0.08);
+}
+
+.session-status--running::before {
+  background: var(--accent);
+  animation: pulse 1.2s ease-in-out infinite;
+}
+
+.session-status--done {
+  color: var(--success);
+  border-color: rgba(30, 155, 99, 0.3);
+  background: rgba(30, 155, 99, 0.08);
+}
+
+.session-status--done::before {
+  background: var(--success);
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.4; transform: scale(0.75); }
 }
 
 .btn {

@@ -17,6 +17,7 @@ export function createRenderer() {
   const progressBar = document.getElementById("progress-bar");
   const summaryEl = document.getElementById("summary");
   const counterEl = document.getElementById("stage-counter");
+  const statusEl = document.getElementById("session-status");
 
   const statGoResponses = document.getElementById("stat-go-responses");
   const statGoMisses = document.getElementById("stat-go-misses");
@@ -86,12 +87,27 @@ export function createRenderer() {
     summaryEl.hidden = true;
   }
 
+  function showStatus(state) {
+    if (state === "running") {
+      statusEl.textContent = "Running";
+      statusEl.className = "session-status session-status--running";
+      statusEl.hidden = false;
+    } else if (state === "done") {
+      statusEl.textContent = "Done";
+      statusEl.className = "session-status session-status--done";
+      statusEl.hidden = false;
+    } else {
+      statusEl.hidden = true;
+    }
+  }
+
   return {
     showStage,
     showCaptured,
     showIdle,
     showSummary,
     hideSummary,
+    showStatus,
     stopProgress,
   };
 }
