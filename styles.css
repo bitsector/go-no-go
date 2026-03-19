@@ -51,12 +51,20 @@ body {
   font-size: 15px;
 }
 
+.stage-counter {
+  margin: 0 0 10px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
 .display {
   text-align: center;
   padding: 24px;
   border: 1px solid var(--border);
   border-radius: 14px;
   background: linear-gradient(135deg, rgba(45, 125, 244, 0.06), rgba(30, 155, 99, 0.04));
+  cursor: pointer;
+  user-select: none;
 }
 
 .cue {
@@ -64,6 +72,20 @@ body {
   font-weight: 700;
   letter-spacing: 0.05em;
   margin: 0 0 12px;
+}
+
+.cue--circle {
+  display: block;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  margin: 0 auto 12px;
+  font-size: 0;
+  transition: opacity 0.15s ease;
+}
+
+.cue--circle.is-captured {
+  opacity: 0.45;
 }
 
 .hint {
@@ -103,9 +125,55 @@ body {
 }
 
 .controls {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 12px;
+}
+
+.session-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  border: 1.5px solid transparent;
+}
+
+.session-status::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.session-status--running {
+  color: var(--accent-strong);
+  border-color: rgba(45, 125, 244, 0.3);
+  background: rgba(45, 125, 244, 0.08);
+}
+
+.session-status--running::before {
+  background: var(--accent);
+  animation: pulse 1.2s ease-in-out infinite;
+}
+
+.session-status--done {
+  color: var(--success);
+  border-color: rgba(30, 155, 99, 0.3);
+  background: rgba(30, 155, 99, 0.08);
+}
+
+.session-status--done::before {
+  background: var(--success);
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.4; transform: scale(0.75); }
 }
 
 .btn {

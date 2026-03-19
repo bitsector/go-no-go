@@ -1,5 +1,5 @@
-export function bindInputs({ buttonEl, onAction }) {
-  function handleButtonClick() {
+export function bindInputs({ displayEl, onAction }) {
+  function handleClick() {
     onAction(performance.now());
   }
 
@@ -10,11 +10,11 @@ export function bindInputs({ buttonEl, onAction }) {
     }
   }
 
-  buttonEl.addEventListener("click", handleButtonClick);
+  displayEl.addEventListener("click", handleClick);
   window.addEventListener("keydown", handleKeyDown);
 
   return () => {
-    buttonEl.removeEventListener("click", handleButtonClick);
+    displayEl.removeEventListener("click", handleClick);
     window.removeEventListener("keydown", handleKeyDown);
   };
 }

@@ -1,11 +1,11 @@
 import { STAGE_DURATION_MS, GO_PROBABILITY, DEFAULT_STAGE_COUNT } from "./config.js";
-import { StageType, generateStages } from "./stages.js";
+import { generateStages } from "./stages.js";
 import { computeSummary } from "./metrics.js";
 import { createRenderer } from "./renderer.js";
 import { bindInputs } from "./input.js";
 
 const startButton = document.getElementById("start-button");
-const actionButton = document.getElementById("action-button");
+const displayEl = document.getElementById("display-area");
 const renderer = createRenderer();
 
 const state = {
@@ -37,6 +37,7 @@ function startSession() {
   state.running = true;
   renderer.hideSummary();
   renderer.showIdle("Get ready...");
+  renderer.showStatus("running");
   startButton.textContent = "Restart Session";
   startNextStage();
 }
@@ -53,7 +54,7 @@ function startNextStage() {
   state.responseTs = null;
   state.stageStartTs = performance.now();
 
-  renderer.showStage(stage.type, STAGE_DURATION_MS);
+  renderer.showStage(stage.type, STAGE_DURATION_MS, state.stageIndex, state.stages.length);
 
   state.stageTimer = setTimeout(() => {
     endStage();
@@ -96,13 +97,14 @@ function finishSession() {
 
   const summary = computeSummary(state.log);
   renderer.showSummary(summary);
+  renderer.showStatus("done");
   renderer.showIdle("Session finished. Press start to replay.");
 }
 
 function init() {
   renderer.showIdle();
   startButton.addEventListener("click", startSession);
-  bindInputs({ buttonEl: actionButton, onAction: handleAction });
+  bindInputs({ displayEl, onAction: handleAction });
 }
 
 init();
