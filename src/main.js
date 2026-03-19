@@ -4,8 +4,6 @@ import { computeSummary } from "./metrics.js";
 import { createRenderer } from "./renderer.js";
 import { bindInputs } from "./input.js";
 
-const startButton = document.getElementById("start-button");
-const actionButton = document.getElementById("action-button");
 const renderer = createRenderer();
 
 const state = {
@@ -36,8 +34,7 @@ function startSession() {
   state.responseTs = null;
   state.running = true;
   renderer.hideSummary();
-  renderer.showIdle("Get ready...");
-  startButton.textContent = "Restart Session";
+  renderer.showIdle();
   startNextStage();
 }
 
@@ -92,7 +89,6 @@ function finishSession() {
   state.running = false;
   state.stageActive = false;
   clearTimers();
-  renderer.stopProgress();
 
   const summary = computeSummary(state.log);
   renderer.showSummary(summary);
@@ -101,8 +97,8 @@ function finishSession() {
 
 function init() {
   renderer.showIdle();
-  startButton.addEventListener("click", startSession);
-  bindInputs({ buttonEl: actionButton, onAction: handleAction });
+  bindInputs({ onAction: handleAction });
+  startSession();
 }
 
 init();
