@@ -61,8 +61,8 @@ body {
 
 .ball {
   position: absolute;
-  width: 200px;
-  height: 200px;
+  width: 20vmin;
+  height: 20vmin;
   border-radius: 50%;
   background-color: transparent;
   opacity: 0;
@@ -177,8 +177,4 @@ body {
 /* ── Responsive ───────────────────────────────────────── */
 
 @media (max-width: 480px) {
-  .ball {
-    width: 150px;
-    height: 150px;
-  }
 }
