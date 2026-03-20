@@ -1,80 +1,97 @@
 import { StageType } from "./stages.js";
+import { GO_COLORS, NO_GO_COLOR } from "./config.js";
 
-function formatNumber(value) {
-  if (value == null || Number.isNaN(value)) return "–";
-  return Math.round(value);
+function pickGoColor() {
+  return GO_COLORS[Math.floor(Math.random() * GO_COLORS.length)];
+}
+
+function formatNum(v) {
+  if (v == null || Number.isNaN(v)) return "–";
+  return Math.round(v);
 }
 
 export function createRenderer() {
-  const cueEl = document.getElementById("cue");
-  const hintEl = document.getElementById("hint");
-  const progressBar = document.getElementById("progress-bar");
-  const summaryEl = document.getElementById("summary");
+  const screenIntro   = document.getElementById("screen-intro");
+  const screenGame    = document.getElementById("screen-game");
+  const screenSummary = document.getElementById("screen-summary");
+  const ballEl        = document.getElementById("ball");
+  const feedbackEl    = document.getElementById("feedback");
+  const statsList     = document.getElementById("stats-list");
+  const restartBtn    = document.getElementById("restart-button");
 
-  const statGoResponses = document.getElementById("stat-go-responses");
-  const statGoMisses = document.getElementById("stat-go-misses");
-  const statNoGoResponses = document.getElementById("stat-no-go-responses");
-  const statNoGoWaits = document.getElementById("stat-no-go-waits");
-  const statGoRtMean = document.getElementById("stat-go-rt-mean");
-  const statGoRtSd = document.getElementById("stat-go-rt-sd");
-  const statNoGoRtMean = document.getElementById("stat-no-go-rt-mean");
-  const statNoGoRtSd = document.getElementById("stat-no-go-rt-sd");
-
-  function restartProgress(durationMs) {
-    progressBar.classList.remove("is-running");
-    // Force reflow so the animation can restart.
-    // eslint-disable-next-line no-unused-expressions
-    progressBar.offsetWidth;
-    progressBar.style.setProperty("--duration", `${durationMs}ms`);
-    progressBar.classList.add("is-running");
+  /** Show exactly one screen; hide the others. */
+  function showScreen(active) {
+    for (const s of [screenIntro, screenGame, screenSummary]) {
+      s.hidden = s !== active;
+    }
   }
 
-  function stopProgress() {
-    progressBar.classList.remove("is-running");
+  /** Clear the RT / error indicator. */
+  function clearFeedback() {
+    feedbackEl.className = "feedback";
+    feedbackEl.textContent = "";
   }
 
-  function showStage(type, durationMs) {
-    cueEl.textContent = type === StageType.GO ? "GO" : "NO GO";
-    cueEl.style.color = type === StageType.GO ? "var(--text)" : "var(--danger)";
-    hintEl.textContent = type === StageType.GO
-      ? "Respond within 3 seconds"
-      : "Do not respond for 3 seconds";
-    restartProgress(durationMs);
+  /** Show the full-screen game canvas. */
+  function showGame() {
+    showScreen(screenGame);
+    ballEl.classList.remove("is-visible");
+    clearFeedback();
   }
 
-  function showCaptured() {
-    hintEl.textContent = "Response recorded";
+  /** Colour and reveal the ball for the given stage type. */
+  function showStage(type) {
+    clearFeedback();
+    ballEl.style.backgroundColor =
+      type === StageType.GO ? pickGoColor() : NO_GO_COLOR;
+    ballEl.classList.add("is-visible");
   }
 
-  function showIdle(message = "Press start to begin") {
-    stopProgress();
-    cueEl.textContent = "Ready?";
-    cueEl.style.color = "var(--text)";
-    hintEl.textContent = message;
+  /** Hide the ball between stages. */
+  function hideBall() {
+    ballEl.classList.remove("is-visible");
   }
 
-  function showSummary(summary) {
-    statGoResponses.textContent = summary.goResponses;
-    statGoMisses.textContent = summary.goMisses;
-    statNoGoResponses.textContent = summary.noGoResponses;
-    statNoGoWaits.textContent = summary.noGoWaits;
-    statGoRtMean.textContent = formatNumber(summary.goRtMean);
-    statGoRtSd.textContent = formatNumber(summary.goRtSd);
-    statNoGoRtMean.textContent = formatNumber(summary.noGoRtMean);
-    statNoGoRtSd.textContent = formatNumber(summary.noGoRtSd);
-    summaryEl.hidden = false;
+  /**
+   * Show green RT number (Go response) or red ✗ (No-Go commission error)
+   * on the right side of the screen.
+   */
+  function showFeedback(type, rtMs) {
+    if (type === StageType.GO) {
+      feedbackEl.textContent = String(Math.round(rtMs));
+      feedbackEl.className = "feedback feedback--rt";
+    } else {
+      feedbackEl.textContent = "✗";
+      feedbackEl.className = "feedback feedback--error";
+    }
   }
 
-  function hideSummary() {
-    summaryEl.hidden = true;
+  /** Show the intro / start screen. */
+  function showIdle() {
+    showScreen(screenIntro);
+    clearFeedback();
   }
 
-  return {
-    showStage,
-    showCaptured,
-    showIdle,
-    showSummary,
-    hideSummary,
-    stopProgress,
-  };
+  /** Render the end-of-session summary and wire the replay button. */
+  function showSummary(summary, onRestart) {
+    showScreen(screenSummary);
+
+    const rows = [
+      ["Go responses",    summary.goResponses],
+      ["Missed Go",       summary.goMisses],
+      ["No-Go errors",    summary.noGoResponses],
+      ["No-Go correct",   summary.noGoWaits],
+      ["Go RT mean (ms)", formatNum(summary.goRtMean)],
+      ["Go RT SD (ms)",   formatNum(summary.goRtSd)],
+    ];
+
+    statsList.innerHTML = rows
+      .map(([label, val]) =>
+        `<div class="stat"><dt>${label}</dt><dd>${val}</dd></div>`)
+      .join("");
+
+    restartBtn.onclick = onRestart;
+  }
+
+  return { showGame, showStage, hideBall, showFeedback, showIdle, showSummary };
 }
