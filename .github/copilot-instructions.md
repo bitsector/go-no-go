@@ -4,6 +4,26 @@ That description matches the standard Go/No‑Go logic where frequent Go trials 
 Requirements:
 JS code that can be easily embedded in a page or display as a standalone page in which the go no go game will run. 
 
+Server must be run with "npx http-server ." command.
+
+Game dynamics and playability:
+1. Played the full web page.
+2. There will be 60 (DEFAULT_STAGE_COUNT) stages in the game
+3. There will be a ball in the center of the page
+4. Every stags has 90% probability to be a go stage, and 10% prob to be a no go stage.
+5. During every go stage the ball will get a new color in random (glue, green, white, yello, orange and that's it).
+6. On every no go stage the ball will be in red color.
+7. The ball will remain with the same color until the end of the stage.
+8. No other time bars or measurments on the page, on ly the ball. 
+9. On every go stage when the user hit's space (or touch the screen on mobile) - a samll green colored number will appear on the right showing the users response time in MS
+10. If the user hits space (or the screen in a no go stage) a red X will apear on the right sight of the page to indicate the user has mad a mistake.
+11. The page must be easy to load in github pages - this is how it's going to be deployed.
+12. The code must be modular, clear, with distinct modules in distinct files each with thier own goal and responsibility. 
+13. When stages change, the next ball must appear immediately, now the balls appear, then when a stage ends, they dissapear slowly and then another ball appears, I don't want that - I want the new ball for the next stage to appear immediately as the stage begins. 
+14. The ball must move across the screen - like the famous DVD logo and bounce on the edges of the screen.
+15. An annoying short BZZZZ sound must be sounded when the player clicks during a no go stage.
+ 
+
 Good papers
 A Model of the Go/No-Go Task
 https://pmc.ncbi.nlm.nih.gov/articles/PMC2701630/
