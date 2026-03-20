@@ -60,20 +60,19 @@ body {
 /* ── Ball ─────────────────────────────────────────────── */
 
 .ball {
+  position: absolute;
   width: 200px;
   height: 200px;
   border-radius: 50%;
   background-color: transparent;
   opacity: 0;
-  transform: scale(0.85);
-  transition: opacity 0.12s ease, transform 0.12s ease;
+  transition: opacity 0.12s ease;
   box-shadow: 0 8px 40px rgba(0, 0, 0, 0.55);
   pointer-events: none;
 }
 
 .ball.is-visible {
   opacity: 1;
-  transform: scale(1);
 }
 
 /* ── Feedback indicator (right side) ─────────────────── */

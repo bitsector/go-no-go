@@ -2,7 +2,6 @@ import {
   STAGE_DURATION_MS,
   GO_PROBABILITY,
   DEFAULT_STAGE_COUNT,
-  ITI_MS,
 } from "./config.js";
 import { generateStages } from "./stages.js";
 import { computeSummary } from "./metrics.js";
@@ -78,9 +77,8 @@ function endStage() {
 
   state.log.push({ index: stage.index, type: stage.type, responded, rtMs });
 
-  // Hide the ball during the inter-trial interval, then advance.
-  renderer.hideBall();
-  state.stageTimer = setTimeout(startNextStage, ITI_MS);
+  // Advance to the next stage immediately — no inter-trial gap, no ball hiding.
+  startNextStage();
 }
 
 function handleAction(timestamp) {
