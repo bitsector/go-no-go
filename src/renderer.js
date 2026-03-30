@@ -1,6 +1,5 @@
 import { StageType } from "./stages.js";
 import { GO_COLORS, NO_GO_COLOR } from "./config.js";
-import { playBuzz } from "./sound.js";
 
 function pickGoColor() {
   return GO_COLORS[Math.floor(Math.random() * GO_COLORS.length)];
@@ -125,7 +124,6 @@ export function createRenderer() {
     } else {
       feedbackEl.textContent = "✗";
       feedbackEl.className = "feedback feedback--error";
-      playBuzz();
     }
   }
 

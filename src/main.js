@@ -1,12 +1,15 @@
 import {
-  STAGE_DURATION_MS,
+  GO_ROUND_MAX_DURATION_MS,
+  NO_GO_ROUND_MAX_DURATION_MS,
+  ROUND_MIN_RANDOM_DURATION_MS,
   GO_PROBABILITY,
   DEFAULT_STAGE_COUNT,
 } from "./config.js";
-import { generateStages } from "./stages.js";
+import { generateStages, StageType } from "./stages.js";
 import { computeSummary } from "./metrics.js";
 import { createRenderer } from "./renderer.js";
 import { bindInputs } from "./input.js";
+import { playBuzz } from "./sound.js";
 
 const renderer  = createRenderer();
 const startBtn  = document.getElementById("start-button");
@@ -71,7 +74,13 @@ function startNextStage() {
   state.stageStartTs = performance.now();
 
   renderer.showStage(stage.type);
-  state.stageTimer = setTimeout(endStage, STAGE_DURATION_MS);
+
+  const maxMs = stage.type === StageType.GO
+    ? GO_ROUND_MAX_DURATION_MS
+    : NO_GO_ROUND_MAX_DURATION_MS;
+  const durationMs = Math.floor(ROUND_MIN_RANDOM_DURATION_MS
+    + Math.random() * (maxMs - ROUND_MIN_RANDOM_DURATION_MS));
+  state.stageTimer = setTimeout(endStage, durationMs);
 }
 
 function endStage() {
@@ -83,6 +92,11 @@ function endStage() {
   const responded = state.responseTs !== null;
   const rtMs      = responded ? state.responseTs - state.stageStartTs : null;
 
+  // GO round ended without a click → missed response, play error sound.
+  if (stage.type === StageType.GO && !responded) {
+    playBuzz();
+  }
+
   state.log.push({ index: stage.index, type: stage.type, responded, rtMs });
 
   // Advance to the next stage immediately — no inter-trial gap, no ball hiding.
@@ -91,12 +105,25 @@ function endStage() {
 
 function handleAction(timestamp) {
   if (!state.running || !state.stageActive) return;
-  if (state.responseTs !== null) return; // only first response per stage
-
-  state.responseTs = timestamp;
 
   const stage = state.stages[state.stageIndex];
-  const rtMs  = timestamp - state.stageStartTs;
+
+  if (stage.type === StageType.NO_GO) {
+    // NO-GO: every click is an error — play buzz immediately.
+    playBuzz();
+    if (state.responseTs === null) {
+      // Record first response only.
+      state.responseTs = timestamp;
+      const rtMs = timestamp - state.stageStartTs;
+      renderer.showFeedback(stage.type, rtMs);
+    }
+    return;
+  }
+
+  // GO: correct response — no error sound.
+  if (state.responseTs !== null) return; // only first response per stage
+  state.responseTs = timestamp;
+  const rtMs = timestamp - state.stageStartTs;
   renderer.showFeedback(stage.type, rtMs);
 }
 
