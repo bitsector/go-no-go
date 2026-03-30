@@ -1,5 +1,5 @@
 export const STAGE_DURATION_MS = 1500;
-export const GO_PROBABILITY = 0.9;
+export const GO_PROBABILITY = 0.3;
 export const DEFAULT_STAGE_COUNT = 60;
 
 /** Pause between stages (ball hidden, feedback still visible). */
