@@ -1,5 +1,4 @@
 import {
-  STAGE_DURATION_MS,
   GO_PROBABILITY,
   DEFAULT_STAGE_COUNT,
   GO_TIMEOUT_MS,
@@ -77,10 +76,10 @@ function startNextStage() {
   state.stageStartTs = performance.now();
 
   renderer.showStage(stage.type);
-  state.stageTimer = setTimeout(endStage, STAGE_DURATION_MS);
+  state.stageTimer = setTimeout(endStage, stage.durationMs);
 
   // Schedule a Go-timeout warning if the player doesn't respond in time.
-  if (stage.type === StageType.GO && GO_TIMEOUT_MS != null && GO_TIMEOUT_MS < STAGE_DURATION_MS) {
+  if (stage.type === StageType.GO && GO_TIMEOUT_MS != null && GO_TIMEOUT_MS < stage.durationMs) {
     state.goTimeoutTimer = setTimeout(() => {
       if (state.stageActive && state.responseTs === null) {
         renderer.showMissFeedback();

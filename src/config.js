@@ -11,6 +11,12 @@ export const ITI_MS = 250;
  */
 export const GO_TIMEOUT_MS = 1000;
 
+/**
+ * Minimum stage duration in ms.  Each round's actual duration is
+ * chosen uniformly at random between this value and STAGE_DURATION_MS.
+ */
+export const STAGE_DURATION_MIN_MS = 700;
+
 /** Ball colours used for Go stages (blue, green, white, yellow, orange). */
 export const GO_COLORS = [
   '#3d8ef0', // blue
