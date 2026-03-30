@@ -19,6 +19,8 @@ export function createRenderer() {
   const feedbackEl    = document.getElementById("feedback");
   const statsList     = document.getElementById("stats-list");
   const restartBtn    = document.getElementById("restart-button");
+  const homeBtn       = document.getElementById("home-button");
+  const exitBtn       = document.getElementById("exit-button");
 
   // ── DVD-logo bounce animation ──────────────────────────────
 
@@ -94,10 +96,13 @@ export function createRenderer() {
     feedbackEl.textContent = "";
   }
 
-  function showGame() {
+  function showGame(onExit) {
     showScreen(screenGame);
     ballEl.classList.remove("is-visible");
     clearFeedback();
+    exitBtn.onclick = () => {
+      if (typeof onExit === "function") onExit();
+    };
     startBounce();
   }
 
@@ -130,7 +135,7 @@ export function createRenderer() {
     clearFeedback();
   }
 
-  function showSummary(summary, onRestart) {
+  function showSummary(summary, onRestart, onHome) {
     stopBounce();
     showScreen(screenSummary);
 
@@ -149,6 +154,9 @@ export function createRenderer() {
       .join("");
 
     restartBtn.onclick = onRestart;
+    homeBtn.onclick = () => {
+      if (typeof onHome === "function") onHome();
+    };
   }
 
   return { showGame, showStage, hideBall, showFeedback, showIdle, showSummary };

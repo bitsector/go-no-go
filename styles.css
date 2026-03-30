@@ -142,11 +142,47 @@ body {
   outline-offset: 3px;
 }
 
+/* ── Exit button (game screen) ────────────────────────── */
+
+.btn--exit {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  padding: 10px 20px;
+  font-size: 15px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  z-index: 10;
+}
+
+.btn--exit:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+/* ── Secondary button ─────────────────────────────────── */
+
+.btn--secondary {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn--secondary:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
 /* ── Summary screen ───────────────────────────────────── */
 
 .summary__title {
   font-size: 28px;
   font-weight: 700;
+}
+
+.summary__actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .stats {

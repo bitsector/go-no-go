@@ -22,13 +22,17 @@
   <div id="screen-game" class="screen screen--game" hidden>
     <div class="ball" id="ball"></div>
     <div class="feedback" id="feedback" aria-live="polite" aria-atomic="true"></div>
+    <button class="btn btn--exit" id="exit-button" aria-label="Exit game">✕ Exit</button>
   </div>
 
   <!-- ── Summary screen ────────────────────────────────── -->
   <div id="screen-summary" class="screen screen--overlay" hidden>
     <h2 class="summary__title">Results</h2>
     <dl class="stats" id="stats-list"></dl>
-    <button class="btn" id="restart-button">Play again</button>
+    <div class="summary__actions">
+      <button class="btn" id="restart-button">Play again</button>
+      <button class="btn btn--secondary" id="home-button">← Menu</button>
+    </div>
   </div>
 
   <script type="module" src="./src/main.js"></script>
