@@ -1,4 +1,4 @@
-import { STAGE_DURATION_MS, STAGE_DURATION_MIN_MS } from "./config.js";
+import { STAGE_DURATION_MAX_MS, STAGE_DURATION_MIN_MS } from "./config.js";
 
 export const StageType = {
   GO: "GO",
@@ -28,6 +28,6 @@ export function generateStages(count, goProbability) {
   return types.map((type, index) => ({
     index,
     type,
-    durationMs: randBetween(STAGE_DURATION_MIN_MS, STAGE_DURATION_MS),
+    durationMs: randBetween(STAGE_DURATION_MIN_MS, STAGE_DURATION_MAX_MS),
   }));
 }

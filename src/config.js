@@ -1,4 +1,4 @@
-export const STAGE_DURATION_MS = 1500;
+export const STAGE_DURATION_MAX_MS = 1500;
 export const GO_PROBABILITY = 0.3;
 export const DEFAULT_STAGE_COUNT = 60;
 
@@ -13,7 +13,7 @@ export const GO_TIMEOUT_MS = 1000;
 
 /**
  * Minimum stage duration in ms.  Each round's actual duration is
- * chosen uniformly at random between this value and STAGE_DURATION_MS.
+ * chosen uniformly at random between this value and STAGE_DURATION_MAX_MS.
  */
 export const STAGE_DURATION_MIN_MS = 700;
 

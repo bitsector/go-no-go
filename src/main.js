@@ -79,7 +79,7 @@ function startNextStage() {
   state.stageTimer = setTimeout(endStage, stage.durationMs);
 
   // Schedule a Go-timeout warning if the player doesn't respond in time.
-  if (stage.type === StageType.GO && GO_TIMEOUT_MS != null && GO_TIMEOUT_MS < stage.durationMs) {
+  if (stage.type === StageType.GO && GO_TIMEOUT_MS !== null && GO_TIMEOUT_MS > 0 && GO_TIMEOUT_MS < stage.durationMs) {
     state.goTimeoutTimer = setTimeout(() => {
       if (state.stageActive && state.responseTs === null) {
         renderer.showMissFeedback();
