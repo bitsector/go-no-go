@@ -32,6 +32,14 @@ function clearTimer() {
   }
 }
 
+function abortSession() {
+  clearTimer();
+  if (unbindInputs) { unbindInputs(); unbindInputs = null; }
+  state.running     = false;
+  state.stageActive = false;
+  renderer.showIdle();
+}
+
 function startSession() {
   clearTimer();
   if (unbindInputs) { unbindInputs(); unbindInputs = null; }
@@ -45,7 +53,7 @@ function startSession() {
     responseTs:  null,
   });
 
-  renderer.showGame();
+  renderer.showGame(abortSession);
   unbindInputs = bindInputs({ touchTarget: screenGame, onAction: handleAction });
   startNextStage();
 }
@@ -99,7 +107,7 @@ function finishSession() {
   if (unbindInputs) { unbindInputs(); unbindInputs = null; }
 
   const summary = computeSummary(state.log);
-  renderer.showSummary(summary, startSession);
+  renderer.showSummary(summary, startSession, renderer.showIdle);
 }
 
 startBtn.addEventListener("click", startSession);
