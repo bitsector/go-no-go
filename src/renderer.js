@@ -129,6 +129,13 @@ export function createRenderer() {
     }
   }
 
+  /** Visual + audio cue when the player fails to respond during a Go stage. */
+  function showMissFeedback() {
+    feedbackEl.textContent = "✗";
+    feedbackEl.className = "feedback feedback--error";
+    playBuzz();
+  }
+
   function showIdle() {
     stopBounce();
     showScreen(screenIntro);
@@ -159,5 +166,5 @@ export function createRenderer() {
     };
   }
 
-  return { showGame, showStage, hideBall, showFeedback, showIdle, showSummary };
+  return { showGame, showStage, hideBall, showFeedback, showMissFeedback, showIdle, showSummary };
 }
