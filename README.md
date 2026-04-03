@@ -1,5 +1,7 @@
 # Go / No-Go Game
 
+▶️ [Click here to play the game](https://bitsector.github.io/go-no-go/)
+
 A minimal Go/No-Go web page with random-duration stages, 30/70 Go vs No-Go ratio, and reaction time logging.
 
 ## Game rules
