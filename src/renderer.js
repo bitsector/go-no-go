@@ -128,8 +128,18 @@ export function createRenderer() {
   }
 
   function showMissFeedback() {
-    feedbackEl.textContent = "YOU MISSED\nA CLICK ON\nTHIS ROUND";
+    feedbackEl.textContent = "YOU MISSED A CLICK\nON THIS ROUND\nPAY ATTENTION";
     feedbackEl.className = "feedback feedback--miss";
+  }
+
+  function pauseBounce() {
+    stopBounce();
+  }
+
+  function resumeBounce() {
+    stopBounce(); // ensure no duplicate RAF
+    lastFrameTs = performance.now();
+    rafId = requestAnimationFrame(bounceTick);
   }
 
   function showIdle() {
@@ -162,5 +172,5 @@ export function createRenderer() {
     };
   }
 
-  return { showGame, showStage, hideBall, showFeedback, showMissFeedback, showIdle, showSummary };
+  return { showGame, showStage, hideBall, showFeedback, showMissFeedback, showIdle, showSummary, pauseBounce, resumeBounce };
 }

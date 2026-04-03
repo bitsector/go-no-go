@@ -98,8 +98,12 @@ function endStage() {
   // GO round ended without a click → missed response: buzz + freeze 1 s.
   if (stage.type === StageType.GO && !responded) {
     playBuzz();
+    renderer.pauseBounce();
     renderer.showMissFeedback();
-    state.stageTimer = setTimeout(startNextStage, MISS_FREEZE_MS);
+    state.stageTimer = setTimeout(() => {
+      renderer.resumeBounce();
+      startNextStage();
+    }, MISS_FREEZE_MS);
     return;
   }
 
