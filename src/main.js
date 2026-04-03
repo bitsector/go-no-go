@@ -4,6 +4,7 @@ import {
   ROUND_MIN_RANDOM_DURATION_MS,
   GO_PROBABILITY,
   DEFAULT_STAGE_COUNT,
+  MISS_FREEZE_MS,
 } from "./config.js";
 import { generateStages, StageType } from "./stages.js";
 import { computeSummary } from "./metrics.js";
@@ -92,12 +93,15 @@ function endStage() {
   const responded = state.responseTs !== null;
   const rtMs      = responded ? state.responseTs - state.stageStartTs : null;
 
-  // GO round ended without a click → missed response, play error sound.
+  state.log.push({ index: stage.index, type: stage.type, responded, rtMs });
+
+  // GO round ended without a click → missed response: buzz + freeze 1 s.
   if (stage.type === StageType.GO && !responded) {
     playBuzz();
+    renderer.showMissFeedback();
+    state.stageTimer = setTimeout(startNextStage, MISS_FREEZE_MS);
+    return;
   }
-
-  state.log.push({ index: stage.index, type: stage.type, responded, rtMs });
 
   // Advance to the next stage immediately — no inter-trial gap, no ball hiding.
   startNextStage();

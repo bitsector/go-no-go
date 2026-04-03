@@ -127,6 +127,11 @@ export function createRenderer() {
     }
   }
 
+  function showMissFeedback() {
+    feedbackEl.textContent = "YOU MISSED\nA CLICK ON\nTHIS ROUND";
+    feedbackEl.className = "feedback feedback--miss";
+  }
+
   function showIdle() {
     stopBounce();
     showScreen(screenIntro);
@@ -157,5 +162,5 @@ export function createRenderer() {
     };
   }
 
-  return { showGame, showStage, hideBall, showFeedback, showIdle, showSummary };
+  return { showGame, showStage, hideBall, showFeedback, showMissFeedback, showIdle, showSummary };
 }
