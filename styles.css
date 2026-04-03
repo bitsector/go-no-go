@@ -101,6 +101,15 @@ body {
   opacity: 1;
 }
 
+.feedback--miss {
+  color: var(--danger);
+  font-size: clamp(14px, 2.2vw, 20px);
+  opacity: 1;
+  white-space: pre-line;
+  text-align: right;
+  line-height: 1.5;
+}
+
 /* ── Intro screen ─────────────────────────────────────── */
 
 .intro__title {

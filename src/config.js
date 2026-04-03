@@ -13,6 +13,9 @@ export const DEFAULT_STAGE_COUNT = 60;
 /** Pause between stages (ball hidden, feedback still visible). */
 export const ITI_MS = 250;
 
+/** Freeze duration (ms) shown after a missed Go response. */
+export const MISS_FREEZE_MS = 1000;
+
 /** Ball colours used for Go stages (blue, green, white, yellow, orange). */
 export const GO_COLORS = [
   '#3d8ef0', // blue
