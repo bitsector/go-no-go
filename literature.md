@@ -8,6 +8,7 @@ A consolidated list of every scientific source cited in this project, grouped by
 
 **A Formal Cognitive Model of the Go/No-Go Discrimination Task**
 https://pmc.ncbi.nlm.nih.gov/articles/PMC2752340/
+
 Models how Go and No-Go responses are discriminated in the brain. Shows that discrimination accuracy depends on stimulus clarity and timing parameters. Helps set stimulus presentation durations in your design.
 
 The go/no-go discrimination task assesses the ability of a participant to learn to respond to cues (in the form of numbers presented on the screen) that have been previously paired with rewards and withhold a response to cues that have been paired with punishments.
