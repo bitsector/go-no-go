@@ -6,13 +6,25 @@ A consolidated list of every scientific source cited in this project, grouped by
 
 ## Core Go/No‑Go task design and theory
 
-**A Model of the Go/No-Go Task**
-https://pmc.ncbi.nlm.nih.gov/articles/PMC2701630/
-Formal computational model of the Go/No-Go task. Explains the cognitive mechanisms: how the brain builds a prepotent Go response and then must suppress it on No-Go trials. Essential reading for understanding *why* the task works structurally.
-
 **A Formal Cognitive Model of the Go/No-Go Discrimination Task**
 https://pmc.ncbi.nlm.nih.gov/articles/PMC2752340/
 Models how Go and No-Go responses are discriminated in the brain. Shows that discrimination accuracy depends on stimulus clarity and timing parameters. Helps set stimulus presentation durations in your design.
+
+On the task definition:
+
+"The go/no-go discrimination task assesses the ability of a participant to learn to respond to cues (in the form of numbers presented on the screen) that have been previously paired with rewards and withhold a response to cues that have been paired with punishments."
+
+And 
+
+On the task procedure:
+
+"In the go/no-go discrimination task, stimuli consist of 'good' and 'bad' two-digit numbers presented in a pseudorandom order for 90 experimental trials. Participants learn by trial-and-error which numbers are good and which are bad. The stimuli are displayed on the screen until participants respond or for up to 2.5 s. After each response, the participants are given visual, auditory, and monetary feedback. Lack of response leads to neither punishment nor reward. A correct response (responding to a good number) is followed by a high-pitched tone, the appearance of the message 'You WIN 25 cents!,' and the addition of money to the participant's tally of earnings. An incorrect response (responding to a bad number) is followed by a low-pitched tone, the appearance of the message 'You LOSE 25 cents!'"
+
+"This game is inspired by the above described mechanics"
+
+**A Model of the Go/No-Go Task**
+https://pmc.ncbi.nlm.nih.gov/articles/PMC2701630/
+Formal computational model of the Go/No-Go task. Explains the cognitive mechanisms: how the brain builds a prepotent Go response and then must suppress it on No-Go trials. Essential reading for understanding *why* the task works structurally.
 
 **A consensus guide to capturing the ability to inhibit actions (stop-signal task)**
 https://pmc.ncbi.nlm.nih.gov/articles/PMC6533084/
