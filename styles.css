@@ -166,7 +166,6 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  text-decoration: none;
   background: var(--accent);
   color: #fff;
   border: none;
@@ -176,6 +175,10 @@ body {
   font-weight: 600;
   cursor: pointer;
   transition: transform 0.12s ease, opacity 0.12s ease;
+}
+
+a.btn {
+  text-decoration: none;
 }
 
 .btn:hover       { transform: translateY(-2px); }
