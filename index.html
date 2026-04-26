@@ -8,14 +8,25 @@
 </head>
 <body>
 
-  <!-- ── Intro screen ───────────────────────────────────── -->
+  <!-- ── Main / Intro screen ────────────────────────────── -->
   <div id="screen-intro" class="screen screen--overlay">
-    <h1 class="intro__title">Go / No-Go</h1>
-    <p class="intro__desc">
-      A ball will appear. <strong>Tap or press Space</strong> as fast as you can —
-      but <strong>hold back</strong> if the ball is <span class="text--danger">red</span>.
-    </p>
-    <button class="btn" id="start-button">Start</button>
+    <div class="intro">
+      <h1 class="intro__title">Go / No-Go</h1>
+      <p class="intro__desc">
+        Train response control with a simple rule set:
+        respond fast on <strong>Go</strong> rounds and inhibit your response on
+        <span class="text--danger"><strong>No-Go</strong> (red)</span> rounds.
+      </p>
+      <ul class="intro__rules">
+        <li>Tap anywhere (or press <strong>Space</strong>) when the ball is not red.</li>
+        <li>Do not tap when the ball is red.</li>
+        <li>The app tracks speed, misses, and inhibition errors.</li>
+      </ul>
+      <div class="intro__actions">
+        <button class="btn" id="start-button">Start game</button>
+        <a class="btn btn--secondary" href="./literature.md">Read literature</a>
+      </div>
+    </div>
   </div>
 
   <!-- ── Game screen ────────────────────────────────────── -->

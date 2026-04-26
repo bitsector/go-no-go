@@ -46,6 +46,14 @@ body {
   background: var(--bg);
 }
 
+.intro {
+  width: min(680px, 100%);
+  padding: clamp(20px, 3vw, 32px);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
 /* Game screen: full-viewport tap target */
 .screen--game {
   display: flex;
@@ -121,8 +129,30 @@ body {
 .intro__desc {
   color: var(--muted);
   font-size: clamp(15px, 2vw, 18px);
-  max-width: 400px;
+  max-width: 560px;
   line-height: 1.6;
+  margin: 0 auto;
+}
+
+.intro__rules {
+  margin: 18px auto 0;
+  max-width: 560px;
+  text-align: left;
+  line-height: 1.6;
+  color: var(--text);
+  padding-left: 20px;
+}
+
+.intro__rules li + li {
+  margin-top: 6px;
+}
+
+.intro__actions {
+  margin-top: 22px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .text--danger {
@@ -133,6 +163,10 @@ body {
 /* ── Button ───────────────────────────────────────────── */
 
 .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
   background: var(--accent);
   color: #fff;
   border: none;
